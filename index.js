@@ -1,57 +1,80 @@
 const inquirer = require('inquirer');
-const Employee = require('./lib/employee');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
 
 //Global array to store the team Objects
 const teamObjs = [];
+//Variable to store the answers
+let answersObj;
 
-//Function that prompts the user for team size and returns that number
-function runPrompt() {
-    let teamSize = 0;
-    inquirer
-        .prompt([{
-            name: 'size',
+//Function that creates the team member objects and pushes them into a global array
+function createTeam() {
+    //Variable for the while loop
+    let run = true;
+
+    //Get input for the team manager
+    inquirer.prompt([
+        {
+            name: 'name',
             type: 'input',
-            message: 'How many team members do you have?'
-        }])
-        .then((answers) => {
-            teamSize = answers.size;
-        });
-    return teamSize;
-};
-
-//Function that uses teamSize in a for loop to create the team member objects
-function createTeam(size) {
-    for (let i = size; i <= size; i++) {
-        let memberType;
-        inquirer
-            .prompt([
-                {
-                    name: 'position',
-                    type: 'list',
-                    message: 'What is this team members position?',
-                    options: ['Employee', 'Engineer', 'Intern', 'Manager']
-                }])
-            .then((answers) => {
-                memberType = answers.position;
-            });
-        switch (memberType) {
-            case 'Employee':
-                
-                break;
-            case 'Engineer':
-
-                break;
-
-            case 'Intern':
-
-                break;
-
-            default:
-
-                break;
+            message: 'Enter team managers name.'
+        },
+        {
+            name: 'id',
+            type: 'number',
+            message: 'Enter team managers employee ID.'
+        },
+        {
+            name: 'email',
+            type: 'input',
+            message: 'Enter team managers email address.'
+        },
+        {
+            name: 'office',
+            type: 'number',
+            message: 'Enter team managers office number.'
         }
+    ]).then((answers) => {
+        const Manager = new Manager(answers.name, answers.id, answers.email, answers.office);
+        teamObjs.push(Manager);
+    })
+
+    //Keep looping employee creation prompts until user selects to stop
+    while (run = true) {
+        inquirer.prompt([
+            {
+                name: 'position',
+                type: 'list',
+                message: 'Select team member position:',
+                options: ['Engineer','Intern']
+            }]).then((answers) => {
+                if(answers.position === 'Engineer'){
+                    inquirer.prompt([
+                        {
+                            name: 'name',
+                            type: 'input',
+                            message: ''
+                        },
+                        {
+                            name: '',
+                            type: '',
+                            message: ''
+                        },
+                        {
+                            name: '',
+                            type: '',
+                            message: ''
+                        },
+                        {
+                            name: '',
+                            type: '',
+                            message: ''
+                        }
+                    ])
+                } else {
+
+                }
+            })
     }
 };
