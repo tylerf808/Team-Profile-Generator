@@ -46,7 +46,7 @@ const genCard = (object) => {
       <h6 class="card-subtitle mb-2 text-muted">Engineer</h6>
       <p class="card-text">ID: ${object.id}</p>
       <a href="mailto: ${object.email}" class="card-link">Email: ${object.email}</a>
-      <a href="${object.github}" class="card-text">GitHub: ${object.github}</a>
+      <a href="https://github.com/${object.github}" class="card-text">GitHub: ${object.github}</a>
     </div>
   </div>`
 }
