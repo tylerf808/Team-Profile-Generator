@@ -18,7 +18,7 @@ async function prompts() {
 }
 
 async function createHtmlFile() {
-    const beginningHTML = genBeforeCards();
+    const beginningHTML = await genBeforeCards();
     const endingHTML = await genEnd();
     await fs.writeFile('./dist/index.html', beginningHTML, (err) => {
         if (err)
@@ -26,8 +26,8 @@ async function createHtmlFile() {
     })
 
     for (let i = 0; i < teamObjs.length; i++) {
-        const string = genCard(teamObjs[i])
-        fs.appendFile('./dist/index.html', string, (err) => {
+        const string = await genCard(teamObjs[i])
+        await fs.appendFile('./dist/index.html', string, (err) => {
             if (err)
                 console.log(err)
         })
